@@ -41,11 +41,18 @@ package object spark {
 
   // mysql
   val MYSQL_JDBC_URL = "jdbc:mysql://node1:3306/spark_examples?useUnicode=true&characterEncoding=utf8"
+  val MYSQL_SCHEMA = "spark_examples"
+  val MYSQL_DB_TABLE = ""
   val MYSQL_USER = "root"
   val MYSQL_PASS = "1qaz@WSX"
 
   // hive
   val HIVE_URL = ""
+
+
+  // kafka
+  val KAFKA_URL = ""
+  val KAFKA_TOPIC = ""
 
   def arrayToString[T](array: Array[T]): String = array.mkString("[", ", ", "]")
 
