@@ -1,0 +1,4 @@
+{"name": "Alice","age": 18,"sex": "Female","addr": ["address_1","address_2", " address_3"]}
+{"name": "Thomas","age": 20, "sex": "Male","addr": ["address_1"]}
+{"name": "Tom","age": 50, "sex": "Male","addr": ["address_1","address_2","address_3"]}
+{"name": "Catalina","age": 30, "sex": "Female","addr": ["address_1","address_2"]}
