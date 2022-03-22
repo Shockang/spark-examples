@@ -19,7 +19,7 @@ object SQLOnHive {
       .getOrCreate()
 
     spark.sql("show tables").show()
-    spark.sql(" CREATE TABLE persion(name STRING,age INT)ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LINES TERMINATED BY '\\n';")
+    spark.sql(" CREATE TABLE person(name STRING,age INT)ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LINES TERMINATED BY '\\n';")
 
     spark.stop()
   }
