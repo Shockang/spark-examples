@@ -11,7 +11,7 @@ import org.apache.spark.sql.SparkSession
  */
 object JoinExample {
   def main(args: Array[String]): Unit = {
-    val spark = SparkSession.builder().appName("AggregateFunctionsExample").master("local[*]").getOrCreate()
+    val spark = SparkSession.builder().appName("JoinExample").master("local[*]").getOrCreate()
     spark.sparkContext.setLogLevel("ERROR")
 
     val df1 = spark.createDataFrame(List(
