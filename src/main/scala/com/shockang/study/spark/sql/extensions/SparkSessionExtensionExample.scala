@@ -25,12 +25,19 @@ object SparkSessionExtensionExample {
       .config(SPARK_SESSION_EXTENSIONS.key, classOf[MyExtensions].getCanonicalName)
       .getOrCreate()
     try {
+      // planning 阶段使用的策略
       assert(spark.sessionState.planner.strategies.contains(MySparkStrategy(spark)))
+      // analysis 阶段 resolution 规则批中使用的规则
       assert(spark.sessionState.analyzer.extendedResolutionRules.contains(MyRule(spark)))
+      // analysis 阶段 Post-Hoc Resolution 规则批中使用的规则
       assert(spark.sessionState.analyzer.postHocResolutionRules.contains(MyRule(spark)))
+      // analysis 阶段的检测规则
       assert(spark.sessionState.analyzer.extendedCheckRules.contains(MyCheckRule(spark)))
+      // optimization 阶段使用的规则
       assert(spark.sessionState.optimizer.batches.flatMap(_.rules).contains(MyRule(spark)))
+      // 自定义 parsing 阶段使用的 ParserInterface
       assert(spark.sessionState.sqlParser.isInstanceOf[MyParser])
+      // 自定义数据库函数
       assert(spark.sessionState.functionRegistry
         .lookupFunction(myFunction._1).isDefined)
     } finally {
@@ -38,7 +45,7 @@ object SparkSessionExtensionExample {
     }
   }
 
-  val myFunction = (FunctionIdentifier("myFunction"),
+  val myFunction: (FunctionIdentifier, ExpressionInfo, Seq[Expression] => Literal) = (FunctionIdentifier("myFunction"),
     new ExpressionInfo(
       "noClass",
       "myDb",
@@ -62,12 +69,19 @@ object SparkSessionExtensionExample {
 
 class MyExtensions extends (SparkSessionExtensions => Unit) {
   def apply(e: SparkSessionExtensions): Unit = {
+    // planning 阶段使用的策略
     e.injectPlannerStrategy(MySparkStrategy)
+    // analysis 阶段 resolution 规则批中使用的规则
     e.injectResolutionRule(MyRule)
+    // analysis 阶段 Post-Hoc Resolution 规则批中使用的规则
     e.injectPostHocResolutionRule(MyRule)
+    // analysis 阶段的检测规则
     e.injectCheckRule(MyCheckRule)
+    // optimization 阶段使用的规则
     e.injectOptimizerRule(MyRule)
+    // 自定义 parsing 阶段使用的 ParserInterface
     e.injectParser(MyParser)
+    // 自定义数据库函数
     e.injectFunction(myFunction)
   }
 }
