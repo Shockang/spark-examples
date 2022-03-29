@@ -11,7 +11,11 @@ object SparkSQLExample {
   val DATA_PATH = SQL_DATA_DIR + "user.json"
 
   def main(args: Array[String]): Unit = {
-    val spark = SparkSession.builder.master("local[*]").appName("SparkSQLExample").getOrCreate()
+    val spark = SparkSession.builder
+      .master("local[*]")
+      .appName("SparkSQLExample")
+      .config("spark.sql.planChangeLog.level", "INFO")
+      .getOrCreate()
 
     val df = spark.read.json(DATA_PATH)
     df.createTempView("t_user")
