@@ -8,7 +8,7 @@ import org.apache.spark.sql.SparkSession
  */
 object SparkSQLExample {
 
-  val DATA_PATH = SQL_DATA_DIR + "user.json"
+  val DATA_PATH: String = SQL_DATA_DIR + "user.json"
 
   def main(args: Array[String]): Unit = {
     val spark = SparkSession.builder
